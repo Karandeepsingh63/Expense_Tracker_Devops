@@ -24,6 +24,9 @@ app.use(
 connectDB();
 
 // Routes
+app.get("/", (req, res) => {
+    res.send("Welcome to the Expense Tracker API");
+});
 app.use("/api/v1/auth", authRoutes);
 
 app.use("/api/v1/income", incomeRoutes);
@@ -36,5 +39,5 @@ app.use("/api/v1/dashboard",dashboardRoutes);
 
 app.use("/uploads",express.static(path.join(__dirname,"uploads")));
 
-const PORT = process.env.PORT ;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
