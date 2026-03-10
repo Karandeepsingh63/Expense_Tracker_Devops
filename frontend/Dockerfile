@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:18-alpine3.21 AS build
+FROM node:18-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Serve
-FROM nginx:1.26-alpine
+FROM nginx:alpine
 RUN apk update && apk upgrade --no-cache
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
