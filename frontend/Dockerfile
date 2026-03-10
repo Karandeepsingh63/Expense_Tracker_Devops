@@ -1,14 +1,21 @@
-# Stage 1: Build
-FROM node:18-alpine AS build
+# Build stage
+FROM node:18-alpine as build
+
 WORKDIR /app
+
 COPY package*.json ./
+
 RUN npm install
+
 COPY . .
+
 RUN npm run build
 
-# Stage 2: Serve
+# Production stage
 FROM nginx:alpine
-RUN apk update && apk upgrade --no-cache
-COPY --from=build /app/dist /usr/share/nginx/html
+
+COPY --from=build /app/build /usr/share/nginx/html
+
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+CMD ["nginx","-g","daemon off;"]
