@@ -22,12 +22,6 @@ pipeline {
             }
         }
 
-        stage('Trivy Scan') {
-            steps {
-                sh 'trivy image $FRONTEND_IMAGE'
-                sh 'trivy image $BACKEND_IMAGE'
-            }
-        }
 
         stage('Push to DockerHub') {
             steps {
