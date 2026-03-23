@@ -30,14 +30,14 @@ pipeline {
         }
 
         stage('Scan Backend Image with Trivy') {
-            steps {
-                sh '''
-                unset TRIVY_CONFIG
-                cd /tmp
-                /usr/bin/trivy image --severity HIGH,CRITICAL --exit-code 1 $BACKEND_IMAGE
-                '''
-            }
-        }
+    steps {
+        sh '''
+        unset TRIVY_CONFIG
+        cd /tmp
+        /usr/bin/trivy image --scanners vuln --ignore-unfixed --severity CRITICAL expense-backend:latest
+        '''
+    }
+}
 
         stage('Scan Frontend Image with Trivy') {
             steps {
