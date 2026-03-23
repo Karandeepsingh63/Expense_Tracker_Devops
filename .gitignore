@@ -1,0 +1,24 @@
+# node
+node_modules/
+npm-debug.log
+
+# env files
+.env
+
+# docker
+*.log
+
+# build
+frontend/dist
+frontend/build
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# misc
+*.swp
