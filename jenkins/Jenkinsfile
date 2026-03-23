@@ -1,0 +1,61 @@
+pipeline {
+    agent any
+
+    environment {
+        BACKEND_IMAGE = "expense-backend:latest"
+        FRONTEND_IMAGE = "expense-frontend:latest"
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Karandeepsingh63/Expense_Tracker_Devops.git'
+            }
+        }
+
+        stage('Build Backend Image') {
+            steps {
+                dir('backend') {
+                    sh 'docker build -t $BACKEND_IMAGE .'
+                }
+            }
+        }
+
+        stage('Build Frontend Image') {
+            steps {
+                dir('frontend') {
+                    sh 'docker build -t $FRONTEND_IMAGE .'
+                }
+            }
+        }
+
+        stage('Scan Backend Image with Trivy') {
+            steps {
+                sh '''
+                unset TRIVY_CONFIG
+                cd /tmp
+                /usr/bin/trivy image --severity HIGH,CRITICAL --exit-code 1 $BACKEND_IMAGE
+                '''
+            }
+        }
+
+        stage('Scan Frontend Image with Trivy') {
+            steps {
+                sh '''
+                unset TRIVY_CONFIG
+                cd /tmp
+                /usr/bin/trivy image --severity HIGH,CRITICAL --exit-code 1 $FRONTEND_IMAGE
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build and scan completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed. Check console output.'
+        }
+    }
+}
