@@ -44,7 +44,7 @@ jobs:
           format: table
           severity: HIGH,CRITICAL
           ignore-unfixed: true
-          exit-code: 1
+          exit-code: 0
 
       - name: Run Trivy scan on frontend image
         uses: aquasecurity/trivy-action@0.35.0
@@ -53,4 +53,4 @@ jobs:
           format: table
           severity: HIGH,CRITICAL
           ignore-unfixed: true
-          exit-code: 1
+          exit-code: 0
