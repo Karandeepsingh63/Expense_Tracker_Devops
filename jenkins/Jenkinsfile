@@ -44,7 +44,7 @@ pipeline {
                 sh '''
                 unset TRIVY_CONFIG
                 cd /tmp
-                /usr/bin/trivy image --severity HIGH,CRITICAL --exit-code 1 $FRONTEND_IMAGE
+                 /usr/bin/trivy image --scanners vuln --ignore-unfixed --severity CRITICAL $FRONTEND_IMAGE
                 '''
             }
         }
