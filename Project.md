@@ -1,20 +1,42 @@
 ![1774250516275](image/Project/1774250516275.png)
 
-
-
 ![1774273235865](image/Project/1774273235865.png)
-
 
 ![1774273212059](image/Project/1774273212059.png)
 
-
-
-docker compose 
+docker compose
 
 ![1774274041377](image/Project/1774274041377.png)
 
 ![1774274064613](image/Project/1774274064613.png)
 
-
-
 ![1774283720861](image/Project/1774283720861.png)
+
+
+
+
+
+
+
+
+![1774289015860](image/Project/1774289015860.png)
+
+
+
+![1774290862712](image/Project/1774290862712.png)
+
+
+![1774290955596](image/Project/1774290955596.png)
+
+
+
+![1774291152892](image/Project/1774291152892.png)
+
+
+![1774291120338](image/Project/1774291120338.png)
+
+
+
+
+
+![1774291200709](image/Project/1774291200709.png)

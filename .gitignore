@@ -12,7 +12,28 @@ npm-debug.log
 frontend/dist
 frontend/build
 
-# OS
+# OS# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# Node
+**/node_modules/
+
+# Env files
+.env
+.env.*
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
 .DS_Store
 Thumbs.db
 
@@ -22,3 +43,12 @@ Thumbs.db
 
 # misc
 *.swp
+
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+.terraform.lock.hcl
+**/node_modules/
+.env
+.env.*
