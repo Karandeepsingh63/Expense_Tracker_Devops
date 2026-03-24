@@ -22,6 +22,7 @@ docker compose
 ![1774289015860](image/Project/1774289015860.png)
 
 
+Terraform
 
 ![1774290862712](image/Project/1774290862712.png)
 
@@ -40,3 +41,14 @@ docker compose
 
 
 ![1774291200709](image/Project/1774291200709.png)
+
+
+![1774293941684](image/Project/1774293941684.png)
+
+
+![1774293957542](image/Project/1774293957542.png)
+
+![1774293971983](image/Project/1774293971983.png)
+
+
+![1774293990418](image/Project/1774293990418.png)
