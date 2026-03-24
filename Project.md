@@ -12,43 +12,33 @@ docker compose
 
 ![1774283720861](image/Project/1774283720861.png)
 
-
-
-
-
-
-
-
 ![1774289015860](image/Project/1774289015860.png)
-
 
 Terraform
 
 ![1774290862712](image/Project/1774290862712.png)
 
-
 ![1774290955596](image/Project/1774290955596.png)
-
-
 
 ![1774291152892](image/Project/1774291152892.png)
 
-
 ![1774291120338](image/Project/1774291120338.png)
-
-
-
-
 
 ![1774291200709](image/Project/1774291200709.png)
 
-
 ![1774293941684](image/Project/1774293941684.png)
-
 
 ![1774293957542](image/Project/1774293957542.png)
 
 ![1774293971983](image/Project/1774293971983.png)
 
-
 ![1774293990418](image/Project/1774293990418.png)
+
+
+
+k8
+
+
+![1774337784664](image/Project/1774337784664.png)
+
+![1774337838477](image/Project/1774337838477.png)
