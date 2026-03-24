@@ -38,7 +38,43 @@ Terraform
 
 k8
 
+yeh niche vale 2 delete krne hai okay
 
 ![1774337784664](image/Project/1774337784664.png)
 
 ![1774337838477](image/Project/1774337838477.png)
+
+
+
+
+yha pe explain krna ki maine abhi sb manually deploy kra hai for testing everything is wrokig fine or
+
+
+![1774349451324](image/Project/1774349451324.png)
+
+
+
+
+
+![1774348807608](image/Project/1774348807608.png)
+
+
+yha pe ab batana hai ki haa locally sb chl pdha hai ab bari hai ki mei cd part bhi automate kru with help of argocd
+
+![1774349634374](image/Project/1774349634374.png)
+
+![1774349607217](image/Project/1774349607217.png)
+
+
+
+
+
+![1774350027921](image/Project/1774350027921.png)
+
+![1774350095859](image/Project/1774350095859.png)
+
+![1774350044665](image/Project/1774350044665.png)
+
+
+
+![1774353417507](image/Project/1774353417507.png)
