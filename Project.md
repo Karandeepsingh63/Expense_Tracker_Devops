@@ -78,3 +78,13 @@ yha pe ab batana hai ki haa locally sb chl pdha hai ab bari hai ki mei cd part b
 
 
 ![1774353417507](image/Project/1774353417507.png)
+
+
+
+
+![1774373554478](image/Project/1774373554478.png)
+
+![1774373755219](image/Project/1774373755219.png)
+
+
+![1774374772573](image/Project/1774374772573.png)
