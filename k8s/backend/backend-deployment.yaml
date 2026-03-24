@@ -19,7 +19,7 @@ spec:
         - name: backend
           image: 497330445336.dkr.ecr.us-east-1.amazonaws.com/expense-tracker-backend:latest
           ports:
-            - containerPort: 3001
+            - containerPort: 5000
           env:
             - name: JWT_SECRET
               valueFrom:
