@@ -18,5 +18,6 @@ spec:
       containers:
         - name: frontend
           image: 497330445336.dkr.ecr.us-east-1.amazonaws.com/expense-tracker-frontend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
