@@ -1,96 +1,86 @@
-name: Build Scan and Push to ECR
+name: CI - Build Scan Push
 
 on:
   push:
-    branches:
-      - main
-      - master
-  pull_request:
+    branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  build-scan-push:
+  build:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
 
     env:
       AWS_REGION: ${{ secrets.AWS_REGION }}
-      FRONTEND_REPOSITORY: expense-tracker-frontend
-      BACKEND_REPOSITORY: expense-tracker-backend
+      BACKEND_REPO: expense-tracker-backend
+      FRONTEND_REPO: expense-tracker-frontend
 
     steps:
-      - name: Checkout source code
+      - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Configure AWS credentials
+      - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr
+      - name: Login to ECR
+        id: ecr
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Set image tag
-        id: vars
-        run: echo "IMAGE_TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
+        run: echo "TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Build Backend
+        run: docker build -t backend ./backend
 
-      - name: Build backend image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./backend
-          file: ./backend/Dockerfile
-          tags: expense-backend:ci
-          load: true
-
-      - name: Build frontend image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./frontend
-          file: ./frontend/Dockerfile
-          tags: expense-frontend:ci
-          load: true
-
-      - name: Run Trivy scan on backend image
+      - name: Scan Backend
         uses: aquasecurity/trivy-action@v0.35.0
         with:
-          image-ref: expense-backend:ci
-          format: table
+          image-ref: backend
           severity: HIGH,CRITICAL
-          ignore-unfixed: true
           exit-code: 0
 
-      - name: Run Trivy scan on frontend image
+      - name: Push Backend
+        run: |
+          docker tag backend ${{ steps.ecr.outputs.registry }}/${{ env.BACKEND_REPO }}:${{ env.TAG }}
+          docker push ${{ steps.ecr.outputs.registry }}/${{ env.BACKEND_REPO }}:${{ env.TAG }}
+
+     
+      - name: Build Frontend
+        run: docker build -t frontend ./frontend
+
+      - name: Scan Frontend
         uses: aquasecurity/trivy-action@v0.35.0
         with:
-          image-ref: expense-frontend:ci
-          format: table
+          image-ref: frontend
           severity: HIGH,CRITICAL
-          ignore-unfixed: true
           exit-code: 0
 
-      - name: Tag backend image for ECR
+      - name: Push Frontend
         run: |
-          docker tag expense-backend:ci ${{ steps.login-ecr.outputs.registry }}/${{ env.BACKEND_REPOSITORY }}:${{ env.IMAGE_TAG }}
-          docker tag expense-backend:ci ${{ steps.login-ecr.outputs.registry }}/${{ env.BACKEND_REPOSITORY }}:latest
+          docker tag frontend ${{ steps.ecr.outputs.registry }}/${{ env.FRONTEND_REPO }}:${{ env.TAG }}
+          docker push ${{ steps.ecr.outputs.registry }}/${{ env.FRONTEND_REPO }}:${{ env.TAG }}
 
-      - name: Tag frontend image for ECR
+      - name: Update backend deployment manifest
         run: |
-          docker tag expense-frontend:ci ${{ steps.login-ecr.outputs.registry }}/${{ env.FRONTEND_REPOSITORY }}:${{ env.IMAGE_TAG }}
-          docker tag expense-frontend:ci ${{ steps.login-ecr.outputs.registry }}/${{ env.FRONTEND_REPOSITORY }}:latest
+          sed -i "s|image: .*expense-tracker-backend:.*|image: ${{ steps.ecr.outputs.registry }}/${{ env.BACKEND_REPO }}:${{ env.TAG }}|g" k8s/backend/backend-deployment.yaml
 
-      - name: Push backend image to ECR
+      - name: Update frontend deployment manifest
         run: |
-          docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.BACKEND_REPOSITORY }}:${{ env.IMAGE_TAG }}
-          docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.BACKEND_REPOSITORY }}:latest
+          sed -i "s|image: .*expense-tracker-frontend:.*|image: ${{ steps.ecr.outputs.registry }}/${{ env.FRONTEND_REPO }}:${{ env.TAG }}|g" k8s/frontend/frontend-deployment.yaml
 
-      - name: Push frontend image to ECR
+     
+      - name: Commit and push updated manifests
         run: |
-          docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.FRONTEND_REPOSITORY }}:${{ env.IMAGE_TAG }}
-          docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.FRONTEND_REPOSITORY }}:latest
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add k8s/backend/backend-deployment.yaml k8s/frontend/frontend-deployment.yaml
+          git diff --cached --quiet || git commit -m "Update image tags to ${TAG}"
+          git push
