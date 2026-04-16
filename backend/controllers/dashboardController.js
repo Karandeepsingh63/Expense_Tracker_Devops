@@ -103,27 +103,3 @@ exports.getDashboardData = async (req, res) => {
   }
 };
 
-
-  // //   Recent Transactions 5 from both Income & Expense
-    // const recentIncome = await Income.find({ userId: userObjectId })
-    //   .sort({ date: -1 })
-    //   .limit(5);
-
-    // const recentExpense = await Expense.find({ userId: userObjectId })
-    //   .sort({ date: -1 })
-    //   .limit(5);
-
-  
-    // //  Income aur Expense dono ko merge karke date ke hisaab se sort kar rahe hain
-    // const lastTransactions = [
-    //   ...recentIncome.map((txn) => ({
-    //     ...txn.toObject(),
-    //     type: "income",
-    //   })),
-    //   ...recentExpense.map((txn) => ({
-    //     ...txn.toObject(),
-    //     type: "expense",
-    //   })),
-    // ]
-    //   .sort((a, b) => b.date - a.date) // latest first
-    //   .slice(0, 5); // only 5

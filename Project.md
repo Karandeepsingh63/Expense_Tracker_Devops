@@ -2,27 +2,21 @@
 
 ---
 
-
-
 ###### *Project Overview*
 
 This project is a DevOps-based deployment of an Expense Tracker application built with a React frontend, Node.js/Express backend, and MongoDB database. The goal of this project is to implement a complete DevOps workflow covering source control, CI/CD, containerization, security scanning, container registry management, Kubernetes deployment, and monitoring.
 
-The application is designed using a microservices-style approach, where the frontend, backend, and database run in separate containers and Kubernetes pods. The workflow includes GitHub for source code management, Jenkins and GitHub Actions for automation, Docker for containerization, Trivy for vulnerability scanning, Amazon ECR for image storage, Minikube for local Kubernetes deployment, and Prometheus with Grafana for monitoring and observability.
+The application is designed using the  microservices-style approach, where the frontend, backend, and database run in separate containers and Kubernetes pods. The workflow includes GitHub for source code management, Jenkins and GitHub Actions for automation, Docker for containerization, Trivy for vulnerability scanning, Amazon ECR for image storage, Minikube for local Kubernetes deployment, and Prometheus with Grafana for monitoring and observability.
 
 This project was built to strengthen practical DevOps skills and make the application deployment process more automated, scalable, secure, and production-oriented.
 
 ---
-
-
 
 ***Objective***
 
 The objective of this project is to transform a full-stack Expense Tracker application into a complete DevOps project by implementing CI/CD, containerization, vulnerability scanning, image management through Amazon ECR, Kubernetes-based deployment, and monitoring with Prometheus and Grafana.
 
 ---
-
-
 
 ###### *Architecture*
 
@@ -32,15 +26,11 @@ The project uses a microservices-style architecture where the React frontend, No
 
 ---
 
-
-
 ###### *Tech Stack*
 
 React, Node.js, Express, MongoDB, GitHub, Jenkins, GitHub Actions, Docker, Trivy, Amazon ECR, Kubernetes (Minikube), Prometheus, Grafana, and Terraform.
 
 ---
-
-
 
 ###### *Backend Containerization*
 
@@ -60,8 +50,6 @@ The image below shows the successful build of the backend Docker image.
 
 ---
 
-
-
 ###### *Frontend Containerization*
 
 The frontend is containerized using a multi-stage Docker build where Node.js is used to build the React app, and Nginx is used to serve the static files. Nginx is chosen for its high performance, efficient static content delivery, and production readiness.
@@ -78,8 +66,6 @@ This step confirms that the services are properly containerized and functioning 
 
 ---
 
-
-
 ###### *Docker Compose*
 
 Before using Docker Compose, the frontend and backend containers had to be started individually, which is not efficient from a DevOps perspective. To simplify the workflow, a `docker-compose.yml` file is created to run both services together with a single command.
@@ -91,8 +77,6 @@ This improves developer productivity, reduces manual effort, and makes the local
 ![1774274064613](image/Project/1774274064613.png)
 
 ---
-
-
 
 ###### *Jenkins Pipeline*
 
@@ -107,8 +91,6 @@ Because of this challenge, Jenkins was used mainly to understand and practice th
 ![1774283720861](image/Project/1774283720861.png)
 
 ---
-
-
 
 ###### *GitHub Actions Workflow > Jenkins*
 
@@ -230,7 +212,6 @@ Overall, it confirms that the application is deployed correctly, running smoothl
 
 ![1774353417507](image/Project/1774353417507.png)
 
-
 ###### *Monitoring with Prometheus and Grafana*
 
 In the final stage, Prometheus and Grafana were added to implement monitoring and observability for the project.
@@ -263,7 +244,6 @@ Each service is mapped to a running pod:
 
 ![1774374772573](image/Project/1774374772573.png)
 
-
 ###### *Challenges Faced*
 
 **Jenkins Webhook Setup**:   Configuring webhook-based triggers in a local environment was difficult due to networking and accessibility limitations. As a result, initial automation relied on polling, and later GitHub Actions was adopted for a more reliable and scalable CI/CD approach.
@@ -275,7 +255,6 @@ Each service is mapped to a running pod:
 **Initial Deployment with ECR and Kubernetes**: Since Minikube runs locally, the Kubernetes cluster does not automatically have access to private images stored in Amazon ECR. Therefore, for the first deployment, Docker registry secrets were manually created in the cluster, and Kubernetes manifests were applied manually. This ensured that the cluster could authenticate with ECR and successfully pull the images.
 
 **ArgoCD Initial Configuration**: Understanding and configuring ArgoCD required learning GitOps concepts and correctly setting up repository sync, auto-sync policies, and cluster access. Initial setup issues were resolved through iterative configuration and testing.
-
 
 ###### *Conclusion*
 

@@ -12,7 +12,6 @@ const client = require("prom-client");
 const app = express();
 app.use(express.json());
 
-// ===== Prometheus metrics setup =====
 const register = new client.Registry();
 client.collectDefaultMetrics({ register });
 
