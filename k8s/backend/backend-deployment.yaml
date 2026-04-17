@@ -17,7 +17,7 @@ spec:
         - name: ecr-secret
       containers:
         - name: backend
-          image: 497330445336.dkr.ecr.us-east-1.amazonaws.com/expense-tracker-backend:920c401
+          image: 497330445336.dkr.ecr.us-east-1.amazonaws.com/expense-tracker-backend:bc1778f
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
